@@ -21,7 +21,7 @@ public class ExceptionHandlerAspect implements MethodInterceptor {
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {
         try {
             return methodInvocation.proceed();
-        } catch (MariaDbException ex) {
+        } catch (MariaDbException ex) { //todo homework - make the exception configurable from outside
 
 //            if (!dbExceptions.containsKey(ex)) {
                 mailSender.sendMailToDba(ex);
