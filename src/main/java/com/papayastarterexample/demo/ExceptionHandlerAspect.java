@@ -1,41 +1,32 @@
 package com.papayastarterexample.demo;
 
-import lombok.SneakyThrows;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
 
 /**
  * @author Evgeny Borisov
  */
-@Aspect
-public class ExceptionHandlerAspect {
+
+public class ExceptionHandlerAspect implements MethodInterceptor {
 
     @Autowired
     private MailSender mailSender;
 
 
-    private Map<MariaDbException,Void> dbExceptions = new WeakHashMap<>();
+//    private Map<MariaDbException,Void> dbExceptions = new WeakHashMap<>();
 
 
-    @SneakyThrows
-    @Around("execution(* com.papaya.aop_advanced_examples..*.*(..))")  //todo pointcut should be congigurable
-    public Object handleMariaDbExceptions(ProceedingJoinPoint pjp) {
+    @Override
+    public Object invoke(MethodInvocation methodInvocation) throws Throwable {
         try {
-            return pjp.proceed();
+            return methodInvocation.proceed();
         } catch (MariaDbException ex) {
 
-            if (!dbExceptions.containsKey(ex)) {
+//            if (!dbExceptions.containsKey(ex)) {
                 mailSender.sendMailToDba(ex);
-                dbExceptions.put(ex,null);
-            }
+//                dbExceptions.put(ex,null);
+//            }
 
             throw ex;
         }
