@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 public class StarterProps {
     private String packagesToScan;
 
-    private int number;
+    private String exceptionClassName;
 
-    private String name;
 }

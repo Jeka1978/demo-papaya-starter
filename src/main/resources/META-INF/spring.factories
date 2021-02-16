@@ -1,4 +1,11 @@
 
+
+
+
+org.springframework.boot.env.EnvironmentPostProcessor = com.papayastarterexample.demo.ProfileAutoRegistrarEnvironmentPostProcessor
+
+org.springframework.context.ApplicationContextInitializer = com.papayastarterexample.demo.ProfileSentinelApplicationContextInitializer
+
 org.springframework.boot.autoconfigure.EnableAutoConfiguration = com.papayastarterexample.demo.ExceptionHandlingConfig
 
 
